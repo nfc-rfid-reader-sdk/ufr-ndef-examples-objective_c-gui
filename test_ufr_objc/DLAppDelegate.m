@@ -64,7 +64,46 @@
 {
     UFR_STATUS status;
     
-    status = ReaderOpen();
+    if (_chkAdvanced.state == NSOnState)
+    {
+        NSString *reader_type = _txtReaderType.stringValue;
+        NSString *port_name = _txtPortName.stringValue;
+        NSString *port_interface = _txtPortInterface.stringValue;
+        NSString *arg = _txtOpenARg.stringValue;
+        
+        const char * reader_type_str = reader_type.UTF8String;
+        uint32 reader_type_int = atoi(reader_type_str);
+        uint32_t port_interface_int = 0;
+        
+        if ([_txtPortInterface.stringValue isEqualToString:@"U"])
+        {
+            port_interface_int = 85;
+        }
+        else if ([_txtPortInterface.stringValue isEqualToString:@"T"])
+        {
+            port_interface_int = 84;
+        }
+        else
+        {
+            port_interface_int = atoi(port_interface.UTF8String);
+        }
+        
+        const char * port_name_str = port_name.UTF8String;
+        
+        const char * arg_str = arg.UTF8String;
+        
+        status = ReaderOpenEx(reader_type_int, port_name_str, port_interface_int,(void*)arg_str);
+        
+        
+    } else {
+        status = ReaderOpen();
+    }
+    
+    if (status == 0)
+    {
+        ReaderUISignal(1,1);
+        
+    }
     
     sttsLabel.stringValue = @(UFR_Status2String(status));
 }

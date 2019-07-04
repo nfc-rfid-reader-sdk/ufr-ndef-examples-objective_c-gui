@@ -127,6 +127,15 @@
 
 @property (weak) IBOutlet NSButton *bWriteBLToReader;
 
+@property (weak) IBOutlet NSButton *chkAdvanced;
+
+@property (weak) IBOutlet NSTextField *txtReaderType;
+
+@property (weak) IBOutlet NSTextField *txtPortName;
+
+@property (weak) IBOutlet NSTextField *txtPortInterface;
+
+@property (weak) IBOutlet NSTextField *txtOpenARg;
 
 
 @end
